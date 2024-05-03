@@ -1,0 +1,14 @@
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\bin\Debug\net8.0\Debug.exe
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\bin\Debug\net8.0\Debug.deps.json
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\bin\Debug\net8.0\Debug.runtimeconfig.json
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\bin\Debug\net8.0\Debug.dll
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\bin\Debug\net8.0\Debug.pdb
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.AssemblyInfoInputs.cache
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.AssemblyInfo.cs
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.csproj.CoreCompileInputs.cache
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.dll
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\refint\Debug.dll
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.pdb
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\Debug.genruntimeconfig.cache
+C:\Users\Emil Viktor Schwarze\source\repos\CGUI\Debug\obj\Debug\net8.0\ref\Debug.dll
