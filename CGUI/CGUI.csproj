@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>The Consolebased Graphical User Interface</Title>
+    <PackageId>net.immortal640.cgui</PackageId>
+    <Authors>Immortal640</Authors>
+    <Company>Immortal640 Inc.</Company>
+    <Description>This is the CGUI Library.
+It contains useful UI Classes and functions.
+You may use it for your own purposes.
+   Just a quick side note: It's CONSOLE-BASED</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PInvoke.Kernel32" Version="0.7.124" />
+    <PackageReference Include="PInvoke.User32" Version="0.7.124" />
+    <PackageReference Include="PInvoke.Windows.Core" Version="0.7.124" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TOOLS\TOOLS.csproj" />
+  </ItemGroup>
+
+</Project>
