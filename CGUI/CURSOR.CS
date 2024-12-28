@@ -6,7 +6,7 @@ using PInvoke;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using TOOLS;
-using TOOLS.DATA;
+using static PInvoke.Kernel32;
 
 namespace CGUI
 {
@@ -86,21 +86,16 @@ namespace CGUI
             public int Right;
             public int Bottom;
         }
+        
+        // Console Mode
+        const uint ENABLE_QUICK_EDIT = 0x0040;
+        const int STD_INPUT_HANDLE = -10;
 
-        // Import the GetConsoleWindow function from kernel32.dll
+        // Windows API functions
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetConsoleWindow();
-
-        // Import the GetWindowRect function from user32.dll
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern IntPtr GetStdHandle(int nStdHandle);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetConsoleScreenBufferInfo(IntPtr hConsoleOutput, out CONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo);
 
 
         public static void Initialize()
@@ -110,20 +105,13 @@ namespace CGUI
             if (KMB)
             {
                 MIN_POS = new System.Drawing.Point(1, 1);
-                MAX_POS = new System.Drawing.Point(Console.BufferWidth - 2, Console.BufferHeight - 2);
+                MAX_POS = new System.Drawing.Point(System.Console.BufferWidth - 2, System.Console.BufferHeight - 2);
             }
             else
             {
                 MIN_POS = new System.Drawing.Point(0, 0);
-                MAX_POS = new System.Drawing.Point(Console.BufferWidth - 1, Console.BufferHeight - 1);
+                MAX_POS = new System.Drawing.Point(System.Console.BufferWidth - 1, System.Console.BufferHeight - 1);
             }
-
-            if (!File.Exists($"data\\calibration\\{Font.FontName}.{Font.FontSize}.cal"))
-                //Calibrate();
-                Console.WriteLine();
-            CALIBRATION cal = JSON.ToObject<CALIBRATION>(File.ReadAllText($"data\\calibration\\{Font.FontName}.{Font.FontSize}.cal"));
-            DivX = cal.Pos1.X;
-            DivY = cal.Pos1.Y;
         }
 
         public static void DeInitialize()
@@ -145,7 +133,7 @@ namespace CGUI
             }
             else
             {
-                MESSAGE.FatErr("Unable to get the console window position!");
+                Message.FatErr("Unable to get the console window position!");
                 LOG.FatErr("Unable to get the colsole window position!");
             }
 
@@ -201,11 +189,12 @@ namespace CGUI
                 SCL = MouseClickHandler.GetSCL();
                 SCR = MouseClickHandler.GetSCR();
 
-                PosX = (pos.x - WPos.Left) / DivX;
-                if (!WnM)
+                PosX = (pos.x - WPos.Left - DivX) / DivX;
+                if (WnM)
                     PosY = (pos.y - WPos.Top) / DivY;
                 else
                     PosY = (pos.y - WPos.Top - 32) / DivY;
+
                 if (PosX < MIN_POS.X)
                     PosX = MIN_POS.X;
                 if (PosX > MAX_POS.X)
@@ -224,96 +213,14 @@ namespace CGUI
 
         public static void Draw()
         {
-            Console.SetCursorPosition(LastPosX, LastPosY);
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine(" ");
+            System.Console.SetCursorPosition(LastPosX, LastPosY);
+            System.Console.BackgroundColor = ConsoleColor.Black;
+            System.Console.WriteLine(" ");
 
-            Console.SetCursorPosition(PosX, PosY);
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.Write(" ");
-        }
-
-        public static bool Calibrate()
-        {
-            Console.Clear();
-            Console.WriteLine("I'm assuming you're in Windowed mode.");
-            Console.WriteLine("So, If you aren't, put the program in");
-            Console.WriteLine("windowed mode to calibrate the position division.");
-            Console.WriteLine("After that, you will be given a slider");
-            Console.WriteLine("to select the window offset.");
-            Console.WriteLine("I don't know how to put a program into fullscreen mode yet.");
-            Console.WriteLine("So you'll have to do that. You will be given a 5 second count down.");
-            Console.WriteLine("\n");
-
-            for (int i = 0; i < 11; i++)
-            {
-                Console.Write($"\rThe calibration starts in {11 - i}  [");
-                for (int j = 0; j < i; j++)
-                    Console.Write("==");
-                for (int j = 0; j < 10 - i; j++)
-                    Console.Write("  ");
-
-                Console.Write("]");
-
-                Thread.Sleep(1000);
-            }
-            Console.Clear();
-
-            Console.WriteLine("█████");
-            Console.WriteLine("█████");
-            Console.WriteLine("█████");
-            Console.WriteLine("█████");
-            Console.WriteLine("█████");
-            Console.WriteLine("     █████");
-            Console.WriteLine("     █████");
-            Console.WriteLine("     █████");
-            Console.WriteLine("     █████");
-            Console.WriteLine("     █████");
-
-            CALIBRATION cal = new CALIBRATION()
-            {
-                Name = "Base Calibration",
-            };
-            CURSOR.Shn = false;
-            while (true)
-            {
-                CURSOR.Tick(new ConsoleKey());
-                if (CURSOR.SCL && CURSOR.SCR)
-                    break;
-            }
-            cal.Pos0 = (Point)User32.GetCursorPos();
-            Thread.Sleep(1000);
-            while (true)
-            {
-                CURSOR.Tick(new ConsoleKey());
-                if (CURSOR.SCL && CURSOR.SCR)
-                    break;
-            }
-            cal.Pos1 = (Point)User32.GetCursorPos();
-            Thread.Sleep(1000);
-            while (true)
-            {
-                CURSOR.Tick(new ConsoleKey());
-                if (CURSOR.SCL && CURSOR.SCR)
-                    break;
-            }
-            cal.Pos2 = (Point)User32.GetCursorPos();
-            Thread.Sleep(1000);
-            while (true)
-            {
-                CURSOR.Tick(new ConsoleKey());
-                if (CURSOR.SCL && CURSOR.SCR)
-                    break;
-            }
-            cal.Pos3 = (Point)User32.GetCursorPos();
-            Thread.Sleep(1000);
-
-
-
-            File.WriteAllText($"data\\calibration\\{Font.FontName}.{Font.FontSize}.cal", JSON.ToString(cal));
-
-            return true;
+            System.Console.SetCursorPosition(PosX, PosY);
+            System.Console.ForegroundColor = ConsoleColor.Black;
+            System.Console.BackgroundColor = ConsoleColor.White;
+            System.Console.Write(" ");
         }
     }
 }

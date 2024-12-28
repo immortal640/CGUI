@@ -22,6 +22,7 @@ You may use it for your own purposes.
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ReadLine\src\ReadLine\ReadLine.csproj" />
     <ProjectReference Include="..\TOOLS\TOOLS.csproj" />
   </ItemGroup>
 

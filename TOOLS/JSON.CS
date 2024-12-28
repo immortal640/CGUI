@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TOOLS
 {
-    public class JSON
+    public class Json
     {
         public object Object { get; set; }
         public string Text { get; set; }

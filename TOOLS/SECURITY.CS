@@ -11,49 +11,42 @@ namespace TOOLS
         public static LEVEL[] LEVELs { get; set; }
     }
 
-    public class CRYPTOGRAPHY
+    public class Cryptography
     {
-        private byte[] IV =
-{
-        0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
-        0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16
-        };
-
-        private byte[] DeriveKeyFromPassword(string password)
+        public static string Encrypt(string txt, string key)
         {
-            var emptySalt = Array.Empty<byte>();
-            var iterations = 1000;
-            var desiredKeyLength = 16; // 16 bytes equal 128 bits.
-            var hashMethod = HashAlgorithmName.SHA384;
-            return Rfc2898DeriveBytes.Pbkdf2(Encoding.Unicode.GetBytes(password),
-                                             emptySalt,
-                                             iterations,
-                                             hashMethod,
-                                             desiredKeyLength);
+            byte[] data = UTF8Encoding.UTF8.GetBytes(txt);
+            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            {
+                byte[] keys = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                using (TripleDESCryptoServiceProvider tripleDESCryptoServiceProvider = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                {
+                    ICryptoTransform transform = tripleDESCryptoServiceProvider.CreateEncryptor();
+                    byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
+                    return Convert.ToBase64String(results);
+                }
+            }
         }
-
-        public async Task<byte[]> EncryptAsync(string clearText, string passphrase)
+        public static string Decrypt(string txt, string key, string? defaultValue)
         {
-            using Aes aes = Aes.Create();
-            aes.Key = DeriveKeyFromPassword(passphrase);
-            aes.IV = IV;
-            using MemoryStream output = new();
-            using CryptoStream cryptoStream = new(output, aes.CreateEncryptor(), CryptoStreamMode.Write);
-            await cryptoStream.WriteAsync(Encoding.Unicode.GetBytes(clearText));
-            await cryptoStream.FlushFinalBlockAsync();
-            return output.ToArray();
-        }
-
-        public async Task<string> DecryptAsync(byte[] encrypted, string passphrase)
-        {
-            using Aes aes = Aes.Create();
-            aes.Key = DeriveKeyFromPassword(passphrase);
-            aes.IV = IV;
-            using MemoryStream input = new(encrypted);
-            using CryptoStream cryptoStream = new(input, aes.CreateDecryptor(), CryptoStreamMode.Read);
-            using MemoryStream output = new();
-            await cryptoStream.CopyToAsync(output);
-            return Encoding.Unicode.GetString(output.ToArray());
+            try
+            {
+                byte[] data = Convert.FromBase64String(txt);
+                using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+                {
+                    byte[] keys = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                    using (TripleDESCryptoServiceProvider tripleDESCryptoServiceProvider = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                    {
+                        ICryptoTransform transform = tripleDESCryptoServiceProvider.CreateDecryptor();
+                        byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
+                        return UTF8Encoding.UTF8.GetString(results);
+                    }
+                }
+            }
+            catch
+            {
+                return defaultValue;
+            }
         }
     }
 
@@ -63,7 +56,7 @@ namespace TOOLS
         public string Description { get; set; }
         public Guid GUID { get; private set; }
         public string PasscodeSHA256 { get; set; }
-        public MESSAGE[] MessageFeed { get; set; }
+        public Message[] MessageFeed { get; set; }
         public ACTION[] ActionFeed { get; set; }
 
         public void Initialize()
@@ -84,23 +77,23 @@ namespace TOOLS
         {
             for (int i = 0; i < MessageFeed.Length; i++)
             {
-                Console.SetCursorPosition(1, Console.BufferHeight - 2);
+                System.Console.SetCursorPosition(1, System.Console.BufferHeight - 2);
                 MessageFeed[i].Endl = true;
                 MessageFeed[i].Display();
                 if (ActionFeed[i].ID != 0)
                 {
-                    Console.WriteLine($"Acttion:{ActionFeed[i].Name} {ActionFeed[i].GUID.ToString()}");
+                    System.Console.WriteLine($"Acttion:{ActionFeed[i].Name} {ActionFeed[i].GUID.ToString()}");
                 }
                 string? response = "";
-                MESSAGE.Info("Type 'next' to display next message: ", 10, false);
+                Message.Info("Type 'next' to display next message: ", 10, false);
                 while (response.ToLower() != "next")
-                    response = Console.ReadLine();
+                    response = System.Console.ReadLine();
             }
         }
 
         public void SendMessage(USER sender, string message, ACTION? action = null)
         {
-            MESSAGE messageM = new MESSAGE();
+            Message messageM = new Message();
             messageM.Text = message;
             if (sender.Name.Length <= 10)
                 messageM.Title = sender.Name;
@@ -127,11 +120,11 @@ namespace TOOLS
             actionFeed.Add(action);
             ActionFeed = actionFeed.ToArray();
 
-            List<MESSAGE> messageFeed = MessageFeed.ToList();
+            List<Message> messageFeed = MessageFeed.ToList();
             messageFeed.Add(messageM);
             MessageFeed = messageFeed.ToArray();
         }
-        public void SendMessage(USER sender, MESSAGE message, ACTION? action = null)
+        public void SendMessage(USER sender, Message message, ACTION? action = null)
         {
             if (action == null)
             {
@@ -147,7 +140,7 @@ namespace TOOLS
             actionFeed.Add(action);
             ActionFeed = actionFeed.ToArray();
 
-            List<MESSAGE> messageFeed = MessageFeed.ToList();
+            List<Message> messageFeed = MessageFeed.ToList();
             messageFeed.Add(message);
             MessageFeed = messageFeed.ToArray();
         }
@@ -173,11 +166,11 @@ namespace TOOLS
         {
             if (!Users.Contains(authenticator))
             {
-                MESSAGE.CritErr("Access denied!");
+                Message.CritErr("Access denied!");
                 LOG.CritErr($"Access denied! [{user.Name}|{user.GUID.ToString()}]");
                 return;
             }
-            MESSAGE authMsg = new MESSAGE()
+            Message authMsg = new Message()
             {
                 Text = $"Authentication required: U:[{user.Name}|{user.GUID.ToString()}] => L:[{Name}|{GUID.ToString()}]",
                 Title = "AUTH",

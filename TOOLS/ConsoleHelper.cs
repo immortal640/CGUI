@@ -38,7 +38,7 @@ namespace TOOLS
 
         public static FontInfo[] SetCurrentFont(string font, short fontSize = 0)
         {
-            Console.WriteLine("Set Current Font: " + font);
+            System.Console.WriteLine("Set Current Font: " + font);
 
             FontInfo before = new FontInfo
             {
@@ -62,7 +62,7 @@ namespace TOOLS
                 if (!SetCurrentConsoleFontEx(ConsoleOutputHandle, false, ref set))
                 {
                     var ex = Marshal.GetLastWin32Error();
-                    Console.WriteLine("Set error " + ex);
+                    System.Console.WriteLine("Set error " + ex);
                     throw new System.ComponentModel.Win32Exception(ex);
                 }
 
@@ -77,7 +77,7 @@ namespace TOOLS
             else
             {
                 var er = Marshal.GetLastWin32Error();
-                Console.WriteLine("Get error " + er);
+                System.Console.WriteLine("Get error " + er);
                 throw new System.ComponentModel.Win32Exception(er);
             }
         }

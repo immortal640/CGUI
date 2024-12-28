@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOOLS
 {
-    public class MESSAGE
+    public class Message
     {
         public string Text { get; set; }
         public string Title { get; set; }
@@ -16,139 +16,139 @@ namespace TOOLS
 
         public void Display()
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = TitleColor;
-            Console.Write(Title);
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = TitleColor;
+            System.Console.Write(Title);
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < Offset - (6 + Title.Length); i++)
-                Console.Write(" ");
-            Console.Write(Text);
+                System.Console.Write(" ");
+            System.Console.Write(Text);
             if (Endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
 
         public static void Custom(string msg, string title, ConsoleColor titleColor, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = titleColor;
-            Console.Write(title);
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = titleColor;
+            System.Console.Write(title);
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - (6 + title.Length); i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void Succ(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("SUCC");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.DarkGreen;
+            System.Console.Write("SUCC");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void Info(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write("INFO");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.DarkBlue;
+            System.Console.Write("INFO");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void Warn(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write("WARN");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.DarkYellow;
+            System.Console.Write("WARN");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void NoCritErr(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("NCER");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.Write("NCER");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void CritErr(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Write("CERR");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.DarkRed;
+            System.Console.Write("CERR");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void FatErr(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.Write("FERR");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            System.Console.Write("FERR");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
         public static void Debg(string msg, int offset = 10, bool endl = true)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("DEBG");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" ] ");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" [ ");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write("DEBG");
+            System.Console.ForegroundColor = ConsoleColor.DarkGray;
+            System.Console.Write(" ] ");
+            System.Console.ForegroundColor = ConsoleColor.Gray;
             for (int i = 0; i < offset - 10; i++)
-                Console.Write(" ");
-            Console.Write(msg);
+                System.Console.Write(" ");
+            System.Console.Write(msg);
             if (endl)
-                Console.WriteLine();
+                System.Console.WriteLine();
         }
     }
 
