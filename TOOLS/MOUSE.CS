@@ -3,6 +3,7 @@
 // The file has been modified by @immortal640
 //
 
+using PInvoke;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -26,17 +27,6 @@ namespace TOOLS
         public short wAttributes;
         public COORD srWindowSize;
         public COORD dwMaximumWindowSize;
-    }
-
-    // P/Invoke to get console screen buffer info
-    public class ConsoleAPI
-    {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern IntPtr GetStdHandle(int nStdHandle);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetConsoleScreenBufferInfo(IntPtr hConsoleOutput, out CONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo);
     }
 
     public static class MouseClickHandler

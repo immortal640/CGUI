@@ -85,7 +85,7 @@ namespace TOOLS
                     System.Console.WriteLine($"Acttion:{ActionFeed[i].Name} {ActionFeed[i].GUID.ToString()}");
                 }
                 string? response = "";
-                Message.Info("Type 'next' to display next message: ", 10, false);
+                Message.Info("Type 'next' to display next message: ", false);
                 while (response.ToLower() != "next")
                     response = System.Console.ReadLine();
             }

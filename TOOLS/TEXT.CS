@@ -34,12 +34,12 @@ namespace TOOLS
                     {
                         if (!string.IsNullOrEmpty(currentLine))
                         {
-                            wrappedText += currentLine + Environment.NewLine;
+                            wrappedText += currentLine + "\n";
                             currentLine = string.Empty;
                         }
                         while (word.Length > bounds)
                         {
-                            wrappedText += word.Substring(0, bounds) + Environment.NewLine;
+                            wrappedText += word.Substring(0, bounds) + "\n";
                             word = word.Substring(bounds);
                         }
                         currentLine = word;
@@ -48,7 +48,7 @@ namespace TOOLS
                     {
                         // Add the current line to the wrapped text and start a new line
                         if (!string.IsNullOrEmpty(currentLine))
-                            wrappedText += currentLine + Environment.NewLine;
+                            wrappedText += currentLine + "\n";
                         currentLine = word;
                     }
                 }

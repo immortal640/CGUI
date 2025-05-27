@@ -2,8 +2,6 @@
 // USER_INTERFACE CLASSES
 // *********************************************************************
 
-using System.Runtime.InteropServices;
-using System.Text;
 using TOOLS;
 
 namespace CGUI
@@ -19,14 +17,8 @@ namespace CGUI
             System.Console.Write("Please make sure, that you "); System.Console.ForegroundColor = ConsoleColor.Red; System.Console.Write("don't use any other terminal-emulator other than the old CMD.EXE"); System.Console.ForegroundColor = ConsoleColor.White; System.Console.WriteLine("   /\\");
             System.Console.WriteLine("Please right click on the Window-TitleBar and select 'Properties'                      'Window-TitleBar'");
             System.Console.WriteLine("Unter the 'Options' tab, select:");
-            System.Console.WriteLine("Cursor Size\n (*) Small\n ( ) Medium\n ( ) Large");
-            System.Console.WriteLine("Edit Options\n [ ] Quick Edit Mode\n [*] Insert Mode\n [*] Enable Ctrl key shortkuts\n [*] Filter clipboard contents on paste\n [*] Use Ctrl+Shift+C/V as Copy/Paste");
-            System.Console.WriteLine("Text Selection\n [ ] Enabe extended line wrapping selection\n [*] Extended test selection keys\n");
-            System.Console.WriteLine("Then, under the 'Font' tab, select:");
-            System.Console.WriteLine("Font\n   .....\n * Raster Fonts\n   .....");
-            System.Console.WriteLine("Size\n   .....\n * 8 x 12\n   .....\n");
-            System.Console.WriteLine("Lastly, in the 'Layout' tab, select:");
-            System.Console.WriteLine("Screen Buffer Size\n Width:          [120]^/v\n Height:         [ 33]^/v\n");
+            System.Console.WriteLine("Edit Options\n [ ] Quick Edit Mode\n [*] Insert Mode\n [*] Enable Ctrl key shortkuts\n [*] Filter clipboard contents on paste\n [ ] Use Ctrl+Shift+C/V as Copy/Paste");
+            
             System.Console.Write("If that's done, type 'yes' [   ]");
 
             ConsoleKey key0 = ConsoleKey.None;
@@ -203,7 +195,7 @@ namespace CGUI
             if (LnW)
             {
                 string txt = "";
-                List<string> parts = TOOLS.TextTools.WrapText(Text, SizeX).Split(Environment.NewLine).ToList<string>();
+                List<string> parts = TOOLS.TextTools.WrapText(Text, SizeX).Split("\n").ToList<string>();
                 int c;
                 for (int i = 0; i < parts.Count; i++)
                 {
@@ -233,16 +225,14 @@ namespace CGUI
                 string[] txt = Text.Split("\n");
                 for (int i = 0; i < SizeY; i++)
                 {
+                    if (i >= txt.Length)
+                    {
+                        continue;
+                    }
                     for (int j = 0; j < SizeX; j++)
                     {
-                        if (i >= txt.Length)
-                        {
-                            System.Console.WriteLine();
-                            continue;
-                        }
                         if (j >= txt[i].Length)
                         {
-                            System.Console.Write(" ");
                             continue;
                         }
                         System.Console.Write(txt[i][j]);

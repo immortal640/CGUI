@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TOOLS
 {
-    public static class Console
+    public static class ConsoleTools
     {
         public static string CancellableReadLine(CancellationToken cancellationToken)
         {

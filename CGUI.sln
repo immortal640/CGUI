@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug", "Debug\Debug.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TOOLS", "TOOLS\TOOLS.csproj", "{6A37D7F6-7ED9-4746-A803-7E6F7C90100A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{2EAFA677-D5BD-4828-AC17-B130BE6B0035}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6A37D7F6-7ED9-4746-A803-7E6F7C90100A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A37D7F6-7ED9-4746-A803-7E6F7C90100A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A37D7F6-7ED9-4746-A803-7E6F7C90100A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAFA677-D5BD-4828-AC17-B130BE6B0035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAFA677-D5BD-4828-AC17-B130BE6B0035}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAFA677-D5BD-4828-AC17-B130BE6B0035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAFA677-D5BD-4828-AC17-B130BE6B0035}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
